@@ -15,6 +15,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         MainWindow.setMinimumSize(QtCore.QSize(600, 0))
         MainWindow.setMaximumSize(QtCore.QSize(1000, 800))
+        MainWindow.setWindowTitle("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/assets/icons/clipboard.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -185,6 +186,8 @@ class Ui_MainWindow(object):
         self.menuFile.setObjectName("menuFile")
         self.menuHelp = QtWidgets.QMenu(parent=self.menuBar)
         self.menuHelp.setObjectName("menuHelp")
+        self.menuSettings = QtWidgets.QMenu(parent=self.menuBar)
+        self.menuSettings.setObjectName("menuSettings")
         MainWindow.setMenuBar(self.menuBar)
         self.action_start = QtGui.QAction(parent=MainWindow)
         icon1 = QtGui.QIcon()
@@ -209,6 +212,12 @@ class Ui_MainWindow(object):
         self.action_load.setObjectName("action_load")
         self.action_documentation = QtGui.QAction(parent=MainWindow)
         self.action_documentation.setObjectName("action_documentation")
+        self.action_check_for_updates = QtGui.QAction(parent=MainWindow)
+        self.action_check_for_updates.setObjectName("action_check_for_updates")
+        self.action_update_check_at_startup = QtGui.QAction(parent=MainWindow)
+        self.action_update_check_at_startup.setCheckable(True)
+        self.action_update_check_at_startup.setChecked(True)
+        self.action_update_check_at_startup.setObjectName("action_update_check_at_startup")
         self.toolBar.addAction(self.action_start)
         self.toolBar.addAction(self.action_stop)
         self.toolBar.addSeparator()
@@ -216,7 +225,10 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.action_load)
         self.menuFile.addAction(self.action_export)
         self.menuHelp.addAction(self.action_documentation)
+        self.menuHelp.addAction(self.action_check_for_updates)
+        self.menuSettings.addAction(self.action_update_check_at_startup)
         self.menuBar.addAction(self.menuFile.menuAction())
+        self.menuBar.addAction(self.menuSettings.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -224,7 +236,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Auto Clipboard Cleaner v1.0.0"))
         self.groupBox_clean_text.setTitle(_translate("MainWindow", "Clean Text"))
         self.checkBox_trim.setText(_translate("MainWindow", "Trim"))
         self.checkBox_remove_blank_lines.setText(_translate("MainWindow", "Remove blank/empty lines"))
@@ -256,14 +267,17 @@ class Ui_MainWindow(object):
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
+        self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.action_start.setText(_translate("MainWindow", "Start"))
         self.action_start.setToolTip(_translate("MainWindow", "Start"))
         self.action_stop.setText(_translate("MainWindow", "stop"))
         self.action_stop.setToolTip(_translate("MainWindow", "Stop"))
         self.action_reset.setText(_translate("MainWindow", "Reset"))
-        self.action_export.setText(_translate("MainWindow", "Export Settings"))
-        self.action_load.setText(_translate("MainWindow", "Load Settings"))
+        self.action_export.setText(_translate("MainWindow", "Export Settings..."))
+        self.action_load.setText(_translate("MainWindow", "Load Settings..."))
         self.action_documentation.setText(_translate("MainWindow", "Read Documentation"))
+        self.action_check_for_updates.setText(_translate("MainWindow", "Check for Updates..."))
+        self.action_update_check_at_startup.setText(_translate("MainWindow", "Check for Updates at Startup"))
 
 
 if __name__ == "__main__":

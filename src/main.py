@@ -1,7 +1,10 @@
-import sys, pyperclip, json
+import sys, pyperclip, json, requests
 from typing import TypedDict
 from pathlib import Path
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QCheckBox, QLineEdit, QTableWidgetItem, QFileDialog
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QWidget, QCheckBox, QLineEdit,
+    QTableWidgetItem, QFileDialog, QMessageBox
+)
 from PyQt6.QtGui import QDesktopServices
 from PyQt6.QtCore import QTimer, QUrl
 
@@ -9,9 +12,12 @@ from ui.main_window import Ui_MainWindow
 from assets import resources_rc
 from text_cleaner import TextCleaner
 
+
 CURRENT_SETTINGS_PATH = Path("settings/current_settings.json")
+CURRENT_VERSION = "v1.1.0"
 
 class Settings(TypedDict):
+    update_check_at_startup: bool
     trim: bool
     remove_blank_lines: bool
     linebreak_to_space: bool
@@ -39,10 +45,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.debounce_timer = QTimer()
         self.debounce_timer.setSingleShot(True)
         self.ignore_next_clipboard_signal = False
+        self.init_ui()
         self.init_signals_slots()
+        self.show()
+        if self.action_update_check_at_startup.isChecked():
+            self.check_for_updates()
+
+    def init_ui(self) -> None:
+        self.setWindowTitle(f"Auto Clipboard Cheaner {CURRENT_VERSION}")
         self.load_settings()
 
     def init_signals_slots(self) -> None:
+        self.action_check_for_updates.triggered.connect(lambda: self.check_for_updates())
         self.action_load.triggered.connect(self.load_settings)
         self.action_export.triggered.connect(self.export_settings)
         self.action_documentation.triggered.connect(
@@ -60,6 +74,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else self.btn_remove.setDisabled(True)
         )
         self.debounce_timer.timeout.connect(self.process_clipboard)
+
+    def check_for_updates(self) -> None:
+        url = f"https://api.github.com/repos/riteshkarmakar/auto-clipboard-cleaner/releases/latest"
+
+        try:
+            response = None
+            response = requests.get(url)
+            response.raise_for_status()
+        except:
+            if self.sender() != self.action_check_for_updates:
+                return
+            msg = QMessageBox(self)
+            msg.setIcon(QMessageBox.Icon.Warning)
+            msg.setWindowTitle("Update Check Failed!")
+            msg.setText("Unable to fetch update information.")
+            msg.setInformativeText("Please check your internet connection or try again later.")
+            msg.setDetailedText(f"Error code: {response.status_code if response != None else "None"}\nURL: {url}")
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg.exec()
+            return
+        
+        release_data = response.json()
+        latest_version = release_data['tag_name']
+        release_page_url = release_data['html_url']
+        download_url = release_data['assets'][0]['browser_download_url']
+        
+        if latest_version > CURRENT_VERSION:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Icon.Information)
+            msg.setWindowTitle("Update Available")
+            msg.setText(
+                f"<h3>A New Version ({latest_version}) is Available!</h3>"
+                f"To learn more about what's new, click 'View Details' below.</p>"
+            )
+            msg.setInformativeText("Would you like to update now?")
+            msg.setStandardButtons(
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Help | QMessageBox.StandardButton.Cancel
+            )
+            msg.button(QMessageBox.StandardButton.Help).setText("View Details")
+            
+            # Open the download URL or View Details
+            result = msg.exec()
+            if result == QMessageBox.StandardButton.Yes:
+                QDesktopServices.openUrl(QUrl(download_url))
+            elif result == QMessageBox.StandardButton.Help:
+                QDesktopServices.openUrl(QUrl(release_page_url))
+
+        else:
+            if self.sender() == self.action_check_for_updates:
+                QMessageBox.information(
+                    self, "No Update Available", f"You are currently using the latest version ({CURRENT_VERSION})"
+                )
 
     def reset(self) -> None:
         for check_box in self.centralwidget.findChildren(QCheckBox):
@@ -97,6 +163,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             find_and_replace.append([find_text, replace_with])
 
         settings: Settings = {
+            "update_check_at_startup": self.action_update_check_at_startup.isChecked(),
             "trim": self.checkBox_trim.isChecked(),
             "remove_blank_lines": self.checkBox_remove_blank_lines.isChecked(),
             "linebreak_to_space": self.checkBox_linebreak_to_space.isChecked(),
@@ -136,6 +203,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             data = file.read()
         settings: Settings = json.loads(data)
 
+        self.action_update_check_at_startup.setChecked(settings.get("update_check_at_startup", True))
         self.checkBox_trim.setChecked(settings.get("trim", False))
         self.checkBox_remove_blank_lines.setChecked(settings.get("remove_blank_lines", False))
         self.checkBox_linebreak_to_space.setChecked(settings.get("linebreak_to_space", False))
@@ -243,5 +311,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle("WindowsVista")
     window = MainWindow()
-    window.show()
     sys.exit(app.exec())

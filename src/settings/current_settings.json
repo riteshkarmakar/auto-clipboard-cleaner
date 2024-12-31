@@ -1,4 +1,5 @@
 {
+	"update_check_at_startup": true,
 	"trim": true,
 	"remove_blank_lines": false,
 	"linebreak_to_space": false,

@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Auto Clipboard Cleaner v1.0.0</string>
+   <string/>
   </property>
   <property name="windowIcon">
    <iconset resource="../assets/resources.qrc">
@@ -412,8 +412,16 @@ riteshkarmakar7407@gmail.com</string>
      <string>Help</string>
     </property>
     <addaction name="action_documentation"/>
+    <addaction name="action_check_for_updates"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="action_update_check_at_startup"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
   </widget>
   <action name="action_start">
@@ -457,17 +465,33 @@ riteshkarmakar7407@gmail.com</string>
   </action>
   <action name="action_export">
    <property name="text">
-    <string>Export Settings</string>
+    <string>Export Settings...</string>
    </property>
   </action>
   <action name="action_load">
    <property name="text">
-    <string>Load Settings</string>
+    <string>Load Settings...</string>
    </property>
   </action>
   <action name="action_documentation">
    <property name="text">
     <string>Read Documentation</string>
+   </property>
+  </action>
+  <action name="action_check_for_updates">
+   <property name="text">
+    <string>Check for Updates...</string>
+   </property>
+  </action>
+  <action name="action_update_check_at_startup">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Check for Updates at Startup</string>
    </property>
   </action>
  </widget>
