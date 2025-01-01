@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="/assets">
+  <qresource>
     <file>icons/clear.png</file>
     <file>icons/clipboard.ico</file>
     <file>icons/start.png</file>

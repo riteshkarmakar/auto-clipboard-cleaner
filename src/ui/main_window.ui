@@ -26,8 +26,8 @@
    <string/>
   </property>
   <property name="windowIcon">
-   <iconset resource="../assets/resources.qrc">
-    <normaloff>:/assets/icons/clipboard.ico</normaloff>:/assets/icons/clipboard.ico</iconset>
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/clipboard.ico</normaloff>:/icons/clipboard.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -278,7 +278,11 @@ riteshkarmakar7407@gmail.com</string>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_replace"/>
+            <widget class="QLineEdit" name="lineEdit_replace">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
            </item>
            <item row="3" column="0" colspan="2">
             <widget class="QTableWidget" name="tableWidget">
@@ -426,8 +430,8 @@ riteshkarmakar7407@gmail.com</string>
   </widget>
   <action name="action_start">
    <property name="icon">
-    <iconset resource="../assets/resources.qrc">
-     <normaloff>:/assets/icons/start.png</normaloff>:/assets/icons/start.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/start.png</normaloff>:/icons/start.png</iconset>
    </property>
    <property name="text">
     <string>Start</string>
@@ -444,8 +448,8 @@ riteshkarmakar7407@gmail.com</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../assets/resources.qrc">
-     <normaloff>:/assets/icons/stop.png</normaloff>:/assets/icons/stop.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/stop.png</normaloff>:/icons/stop.png</iconset>
    </property>
    <property name="text">
     <string>stop</string>
@@ -456,8 +460,8 @@ riteshkarmakar7407@gmail.com</string>
   </action>
   <action name="action_reset">
    <property name="icon">
-    <iconset resource="../assets/resources.qrc">
-     <normaloff>:/assets/icons/clear.png</normaloff>:/assets/icons/clear.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/clear.png</normaloff>:/icons/clear.png</iconset>
    </property>
    <property name="text">
     <string>Reset</string>
@@ -496,7 +500,7 @@ riteshkarmakar7407@gmail.com</string>
   </action>
  </widget>
  <resources>
-  <include location="../assets/resources.qrc"/>
+  <include location="resources.qrc"/>
  </resources>
  <connections/>
 </ui>

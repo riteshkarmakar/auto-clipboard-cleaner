@@ -1,15 +1,15 @@
 import sys, pyperclip, json, requests
 from typing import TypedDict
 from pathlib import Path
-from PyQt6.QtWidgets import (
+from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QCheckBox, QLineEdit,
     QTableWidgetItem, QFileDialog, QMessageBox
 )
-from PyQt6.QtGui import QDesktopServices
-from PyQt6.QtCore import QTimer, QUrl
+from PySide6.QtGui import QDesktopServices
+from PySide6.QtCore import QTimer, QUrl
 
 from ui.main_window import Ui_MainWindow
-from assets import resources_rc
+from ui import resources_rc
 from text_cleaner import TextCleaner
 
 
@@ -56,7 +56,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.load_settings()
 
     def init_signals_slots(self) -> None:
-        self.action_check_for_updates.triggered.connect(lambda: self.check_for_updates())
+        self.action_check_for_updates.triggered.connect(self.check_for_updates)
         self.action_load.triggered.connect(self.load_settings)
         self.action_export.triggered.connect(self.export_settings)
         self.action_documentation.triggered.connect(
