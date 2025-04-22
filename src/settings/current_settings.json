@@ -1,0 +1,20 @@
+{
+	"find_and_replace": [],
+	"update_check_at_startup": true,
+	"trim": true,
+	"remove_blank_lines": false,
+	"linebreak_to_space": false,
+	"multiple_spaces_to_single": false,
+	"numbered_list_to_plain": false,
+	"groupbox_case": false,
+	"upper_case": true,
+	"lower_case": false,
+	"capitalize_case": false,
+	"sentence_case": false,
+	"groupbox_wrap": false,
+	"parentheses": true,
+	"curly_brackets": false,
+	"square_brackets": false,
+	"single_quotes": false,
+	"double_quotes": false
+}
