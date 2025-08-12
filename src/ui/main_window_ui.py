@@ -212,20 +212,20 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
-        self.lineEdit_find = QLineEdit(self.groupBox_find_replace)
-        self.lineEdit_find.setObjectName(u"lineEdit_find")
+        self.lineEdit_replace = QLineEdit(self.groupBox_find_replace)
+        self.lineEdit_replace.setObjectName(u"lineEdit_replace")
 
-        self.gridLayout.addWidget(self.lineEdit_find, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.lineEdit_replace, 1, 1, 1, 1)
 
         self.label_2 = QLabel(self.groupBox_find_replace)
         self.label_2.setObjectName(u"label_2")
 
         self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
 
-        self.lineEdit_replace = QLineEdit(self.groupBox_find_replace)
-        self.lineEdit_replace.setObjectName(u"lineEdit_replace")
+        self.lineEdit_find = QLineEdit(self.groupBox_find_replace)
+        self.lineEdit_find.setObjectName(u"lineEdit_find")
 
-        self.gridLayout.addWidget(self.lineEdit_replace, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.lineEdit_find, 0, 1, 1, 1)
 
         self.tableWidget = QTableWidget(self.groupBox_find_replace)
         if (self.tableWidget.columnCount() < 2):
@@ -240,7 +240,6 @@ class Ui_MainWindow(object):
         __qtablewidgetitem1.setFont(font);
         self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.tableWidget.setObjectName(u"tableWidget")
-        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableWidget.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
@@ -268,6 +267,11 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout.addLayout(self.horizontalLayout_3, 2, 1, 1, 1)
+
+        self.checkBox_process_special_characters = QCheckBox(self.groupBox_find_replace)
+        self.checkBox_process_special_characters.setObjectName(u"checkBox_process_special_characters")
+
+        self.gridLayout.addWidget(self.checkBox_process_special_characters, 4, 0, 1, 2, Qt.AlignRight)
 
 
         self.verticalLayout_3.addWidget(self.groupBox_find_replace)
@@ -348,14 +352,15 @@ class Ui_MainWindow(object):
 "riteshkarmakar7407@gmail.com", None))
         self.groupBox_find_replace.setTitle(QCoreApplication.translate("MainWindow", u"Find and Replace", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Find:", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Replace:", None))
         self.lineEdit_replace.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Replace:", None))
         ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Find", None));
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Replace", None));
         self.btn_add.setText(QCoreApplication.translate("MainWindow", u"Add", None))
         self.btn_remove.setText(QCoreApplication.translate("MainWindow", u"Remove", None))
+        self.checkBox_process_special_characters.setText(QCoreApplication.translate("MainWindow", u"Process special characters", None))
         self.toolBar.setWindowTitle(QCoreApplication.translate("MainWindow", u"toolBar", None))
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))

@@ -267,8 +267,12 @@ riteshkarmakar7407@gmail.com</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit_find"/>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_replace">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_2">
@@ -277,18 +281,11 @@ riteshkarmakar7407@gmail.com</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_replace">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEdit_find"/>
            </item>
            <item row="3" column="0" colspan="2">
             <widget class="QTableWidget" name="tableWidget">
-             <property name="editTriggers">
-              <set>QAbstractItemView::NoEditTriggers</set>
-             </property>
              <property name="selectionMode">
               <enum>QAbstractItemView::SingleSelection</enum>
              </property>
@@ -361,6 +358,13 @@ riteshkarmakar7407@gmail.com</string>
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="4" column="0" colspan="2" alignment="Qt::AlignRight">
+            <widget class="QCheckBox" name="checkBox_process_special_characters">
+             <property name="text">
+              <string>Process special characters</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

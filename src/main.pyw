@@ -12,15 +12,17 @@ from PySide6.QtCore import QTimer, QUrl
 
 from ui.main_window_ui import Ui_MainWindow
 from text_cleaner import TextCleaner
+from utils import parse_special_characters
 
 
-CURRENT_VERSION = "v1.0.0"
+CURRENT_VERSION = "v1.1.0"
 DEFAULT_SETTINGS_PATH = "settings/current_settings.json"
 DOCUMENTATION_URL = "https://github.com/riteshkarmakar/auto-clipboard-cleaner"
 UPDATE_URL = "https://api.github.com/repos/riteshkarmakar/auto-clipboard-cleaner/releases/latest"
 
 class Settings(TypedDict):
     update_check_at_startup: bool
+    Process_special_characters: bool
     trim: bool
     remove_blank_lines: bool
     linebreak_to_space: bool
@@ -57,6 +59,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.widget_key_map = {
             self.action_update_check_at_startup: "update_check_at_startup",
+            self.checkBox_process_special_characters: "process_special_characters",
             self.checkBox_trim: "trim",
             self.checkBox_remove_blank_lines: "remove_blank_lines",
             self.checkBox_linebreak_to_space: "linebreak_to_space",
@@ -292,6 +295,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for row in range(self.tableWidget.rowCount()):
             find_text = self.tableWidget.item(row, 0).text()
             replace_with = self.tableWidget.item(row, 1).text()
+
+            if self.checkBox_process_special_characters.isChecked():
+                find_text = parse_special_characters(find_text)
+                replace_with = parse_special_characters(replace_with)
+
             text_cleaner.find_and_replace(find_text, replace_with)
 
         # Mark that the next signal for this change is to be ignored
